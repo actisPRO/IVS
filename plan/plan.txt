@@ -19,6 +19,11 @@ Grafické zpracování uživatelského rozhraní | 16.04 | Pracuje: xkarev00. Re
 • implementace nápovědy do uživatelského rozhraní
 • implementace základních operací pomocí klávesnice
 
+Profiling | 16.04 | Pracuje: xhaury00. Review: xkarev00
+• samostatný spustitelný soubor pro výpočet výběrové směrodatné odchylky z posloupnosti čísel
+• profilování se vstupy o velikosti 10, 100 a 1000 číselných hodnot
+• protokol obsahující výstup profileru a stručné shrnutí - ve kterých místech program tráví nejvíce času 
+
 Makefile | 23.04 | Pracuje: xrezni29. Review: xsmisk00
 • vytvoření makefilu sloužícího k úspěšnému sestavení programu
 • makefile bude obsahovat následující cíle: all, pack, clean, test, doc, run
