@@ -46,3 +46,4 @@ Discord, žádná pravidla pro komunikaci nejsou.
 Systém pro správu verzí
 
 Git, hosting: Github. Uživatel ivskontrola má přístup.
+URL: https://github.com/actisPRO/IVS
