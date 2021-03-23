@@ -1,7 +1,6 @@
 // $Author:     Jan Řezníček <xrezni29@stud.fit.vutbr.cz>
 // $Name:       Tdd tests for mathLibrary
 //    g++ test.cpp mathLib.h -lgtest -lgtest_main -pthread
-#include <vector>
 #include "gtest/gtest.h"
 #include "mathLib.h"
 #include <iostream>
