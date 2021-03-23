@@ -11,49 +11,32 @@ public:
 
     
     //addition 2 numbers, returns result of addition 
-    double addition(double number1, double number2)
-    {
-        return number1;
-    }
+    double addition(double number1, double number2);
+
     //number1 - number2 return result 
-    double subtraction(double number1, double number2)
-    {
-        return number1;
-    }
+    double subtraction(double number1, double number2);
+
 
     //multiply 2 numbers, return  result of multiplication
-    double multiply(double number1, double number2)
-    {
-        return number1;
-    }
+    double multiply(double number1, double number2);
+
   
     //divident/divisor return result error message for divisor = 0 
-    double division(double divident, double divisor)
-    {
-        return divident;
-    }
+    double division(double divident, double divisor);
 
     //return sqrt(radicant) work for radicant >= 0 else return error message 
-    double sqrt(double index,double radicant)
-    {
-        return index;
-    }
+    double sqrt(double index,double radicant);
+
 
     //expoent can be only int, return exp(base)
-    double pow(double exponent, double base)
-    {
-        return base;
-    }
+    double pow(double exponent, double base);
+
 
     //return factorial of number, work for number(int) >= 0 error message for not unsigned int 
-    double factorial(double number)
-    {
-        return number;
-    }
-    double log(double number)
-    {
-        return number;
-    }
+    double factorial(double number);
+
+    double log(double number);
+
 
 };
 
