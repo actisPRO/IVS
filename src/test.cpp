@@ -4,7 +4,6 @@
 #include <vector>
 #include "gtest/gtest.h"
 #include "mathLib.h"
-#include <cmath>
 #include <iostream>
 using namespace std;
 
