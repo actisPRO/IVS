@@ -42,13 +42,51 @@ TEST(test ,subtraction)
     
    
 }
+
 //interval because double = double
-::testing::AssertionResult Interval(double val, double interval)
+::testing::AssertionResult Interval(double val, double res)
 {
-    if((val >= interval-0.01) && (val <= interval+0.01))
-        return ::testing::AssertionSuccess();
+    if (val == 0)
+    {
+        if ((val <= (res+0.1)) && (val >= (res-0.1))) return ::testing::AssertionSuccess();
+    }
+    else if(val >= 10000000000)
+    {
+        while(val >= 10000000000)
+        {
+            val /= 100;
+            res /= 100;
+        }
+        if ((val <= (res+0.1)) && (val >= (res-0.1))) return ::testing::AssertionSuccess();
+    }
+    else if (val > 0)
+    {
+        while(val <= 10000000000)
+        {
+            val *= 100;
+            res *= 100;
+        }
+        if ((val <= (res+0.1)) && (val >= (res-0.1))) return ::testing::AssertionSuccess();
+    }
+    else if(val <= -10000000000)
+    {
+        while(val <= -10000000000)
+        {
+            val /= 100;
+            res /= 100;
+        }
+        if ((val <= (res+0.1)) && (val >= (res-0.1))) return ::testing::AssertionSuccess();
+    }
     else
-        return ::testing::AssertionFailure();
+    {
+        while(val >= -10000000000)
+        {
+            val *= 100;
+            res *= 100;
+        }
+        if ((val <= (res+0.1)) && (val >= (res-0.1))) return ::testing::AssertionSuccess();
+    }
+    return ::testing::AssertionFailure();
 }
 
 
@@ -59,7 +97,7 @@ TEST(test,pow)
     int n = 20;
     for (int i = 0; i < 11; i++)
     {
-        EXPECT_TRUE(Interval(m.pow(values[i],exp[i]), result[i]));
+        EXPECT_TRUE(Interval(m.pow(exp[i], values[i]), result[i]));
       
         cout.precision(15);
         cout << "Pořadí: " << i << " Umocňování: "<< endl <<values[i]<<"^"<<exp[i] << "  = " << fixed << result[i]<< endl;
