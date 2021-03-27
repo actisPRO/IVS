@@ -130,7 +130,7 @@ double mathLib::sqrt(double index,double radicant)
 double mathLib::pow(double exponent, double base)
 {
     long long int exp = (long long int) exponent;
-    if (exp < exponent)
+    if ((exp < exponent)||(exponent < 0))
         throw std::runtime_error("Exponent is not natural number.");
     if (exponent == 0)
         return 1;
