@@ -96,20 +96,19 @@ double mathLib::division(double divident, double divisor)
    *
    * @return     if radicant is lower than zero or index is not natural number retuns error messege, else returns result of square root
 */
-double mathLib::sqrt(double index,double radicant)
+double mathLib::sqrt(long long index,double radicant)
 {
     if (radicant <0)
         throw std::runtime_error("Radicant has to grather or equal to zero.");
-    long long int ind = (long long int) index;
-    if ((ind < index)||(index < 0))
+    if ((index < 0)
         throw std::runtime_error("index has to be natural number.");
     double x0, x = 1;
     do {
         x0 = x;
-        x = ind - 1;
-        x *= pow(ind,x0);
+        x = index - 1;
+        x *= pow(index,x0);
         x += radicant;
-        x /= (index * pow((ind-1), x0));
+        x /= (index * pow((index-1), x0));
     } while (((x0 - x) > eps)  || ((x - x0) > eps));
 
     return x;
@@ -127,15 +126,12 @@ double mathLib::sqrt(double index,double radicant)
    *
    * @return     if exponent is not natural number returns error messege, else returns base^exponent
 */
-double mathLib::pow(double exponent, double base)
+double mathLib::pow(long long exponent, double base)
 {
-    long long int exp = (long long int) exponent;
-    if ((exp < exponent)||(exponent < 0))
+    if (exponent < 0)
         throw std::runtime_error("Exponent is not natural number.");
-    if (exponent == 0)
-        return 1;
-    double returnValue = base;
-    for(int i = 1; i < exponent; i++) returnValue *= base;
+    double returnValue = 1;
+    for(int i = 0; i < exponent; i++) returnValue *= base;
     return returnValue;
 }
 
@@ -150,12 +146,11 @@ double mathLib::pow(double exponent, double base)
    *
    * @return     if number is not natural returns error messege, else returns factorial of number
 */
-double mathLib::factorial(double number)
+long long mathLib::factorial(long long number)
 {
-    long long int num = (long long int) number;
-    if ((num < number)||(number < 0))
+    if (number < 0)
         throw std::runtime_error("You can use only natural number.");
-    double returnValue = 1;
+    long long returnValue = 1;
     for(int i = 1; i <= number; i++)
         returnValue *= i;
     return returnValue;
