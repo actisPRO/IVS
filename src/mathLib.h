@@ -25,15 +25,15 @@ public:
     double division(double divident, double divisor);
 
     //return sqrt(radicant) work for radicant >= 0 else return error message 
-    double sqrt(double index,double radicant);
+    double sqrt(long long index,double radicant);
 
 
     //expoent can be only int, return exp(base)
-    double pow(double exponent, double base);
+    double pow(long long exponent, double base);
 
 
     //return factorial of number, work for number(int) >= 0 error message for not unsigned int 
-    double factorial(double number);
+    long long factorial(long long number);
 
     double log(double number);
 
