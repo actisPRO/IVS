@@ -100,7 +100,7 @@ double mathLib::sqrt(long long index,double radicant)
 {
     if (radicant <0)
         throw std::runtime_error("Radicant has to grather or equal to zero.");
-    if ((index < 0)
+    if (index < 0)
         throw std::runtime_error("index has to be natural number.");
     double x0, x = 1;
     do {
