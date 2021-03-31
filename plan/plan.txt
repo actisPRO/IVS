@@ -1,0 +1,49 @@
+Úkoly a terminy:
+
+Testování matematické knihovny | 19.03 | Pracuje: xrezni29. Review: xhaury00
+• sada testů vytvořená před samotnou implementací
+• testování správnosti matematických operací
+• vytvoření hlavičkového souboru matematické knihovny
+
+Implementace matematických operací | 02.04 | Pracuje: xsmisk00. Review: xrezni29
+• implementace matematických operací(+,-,*,/) do matematické knihovny
+• implementace faktoriálu a umocňování exponentu do matematické knihovny, exponentem můžou být pouze přirozená čísla
+• implementace odmocniny fungující pro každé reálné číslo větší nebo rovno 0
+• implementace logaritmu fungující pro každé reálné číslo větší jak 0
+• vyjmenované funkce budou implementovány do matematické knihovny
+
+Grafické zpracování uživatelského rozhraní | 16.04 | Pracuje: xkarev00. Review: xsmisk00
+• grafické zpracování programu jeho celkového vzhledu, uspořádání komponent
+• grafické zpracování programu bude vyvíjeno pomocí knihovny QT
+• ovládání jednotlivých komponent, jejich programová implementace
+• implementace nápovědy do uživatelského rozhraní
+• implementace základních operací pomocí klávesnice
+
+Profiling | 16.04 | Pracuje: xhaury00. Review: xkarev00
+• samostatný spustitelný soubor pro výpočet výběrové směrodatné odchylky z posloupnosti čísel
+• profilování se vstupy o velikosti 10, 100 a 1000 číselných hodnot
+• protokol obsahující výstup profileru a stručné shrnutí - ve kterých místech program tráví nejvíce času 
+
+Makefile | 23.04 | Pracuje: xrezni29. Review: xsmisk00
+• vytvoření makefilu sloužícího k úspěšnému sestavení programu
+• makefile bude obsahovat následující cíle: all, pack, clean, test, doc, run
+
+Instalátor | 23.04 | Pracuje: xkarev00. Review: xsmisk00
+• implementace instalátoru/odinstalátoru programu
+
+Dokumentace | 23.04 | Pracuje: xhaury00. Review: xsmisk00
+• postup instalace a odinstalace programu pomocí instalátoru (odinstalátoru).
+• návod pro manuální (od)instalaci, tzn. postup překladu ze zdrojových kódů, vytvoření zástupců (ikonek) a dalších akcí, které provádí instalátor.
+
+Mockup | 23.04 | Pracuje: xhaury00, xsmisk00, xrezni29, xkarev00.
+• další verze uživatelského rozhraní plánovaná pro novou verzi kalkulačky
+• bude podporovat vědecký mód, vykreslování grafů a stopky
+
+Komunikační kanály
+
+Discord, žádná pravidla pro komunikaci nejsou.
+
+Systém pro správu verzí
+
+Git, hosting: Github. Uživatel ivskontrola má přístup.
+URL: https://github.com/actisPRO/IVS
