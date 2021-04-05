@@ -15,6 +15,18 @@ public:
     Calc(QWidget *parent = nullptr);
     ~Calc();
 
+    typedef enum {
+        None,
+        Addition,
+        Substraction,
+        Multiplcation,
+        Division,
+        Factorial,
+        Logarithm,
+        Pow,
+        Root
+    } OperationType;
+
 private slots:
     void on_num_1_released();
 
@@ -38,8 +50,14 @@ private slots:
 
     void on_backspace_released();
 
+    void on_clear_entry_released();
+
 private:
     Ui::Calc *ui;
+
+    double number1;
+    double number2;
+    OperationType operation;
 
     // Adds a digit to the line edit
     void addDigit(char digit);
