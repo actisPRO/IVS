@@ -5,6 +5,10 @@ Calc::Calc(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calc)
 {
+    number1 = 0;
+    number2 = 0;
+    operation = None;
+
     ui->setupUi(this);
 }
 
@@ -89,5 +93,14 @@ void Calc::on_backspace_released()
 
 void Calc::on_clear_entry_released()
 {
+    ui->lineEdit->setText("0");
+}
+
+void Calc::on_global_clear_released()
+{
+    number1 = 0;
+    number2 = 0;
+    operation = None;
+
     ui->lineEdit->setText("0");
 }
