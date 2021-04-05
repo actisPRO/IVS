@@ -15,7 +15,33 @@ public:
     Calc(QWidget *parent = nullptr);
     ~Calc();
 
+private slots:
+    void on_num_1_released();
+
+    void on_num_2_released();
+
+    void on_num_3_released();
+
+    void on_num_4_released();
+
+    void on_num_5_released();
+
+    void on_num_6_released();
+
+    void on_num_7_released();
+
+    void on_num_8_released();
+
+    void on_num_9_released();
+
+    void on_num_0_released();
+
+    void on_backspace_released();
+
 private:
     Ui::Calc *ui;
+
+    // Adds a digit to the line edit
+    void addDigit(char digit);
 };
 #endif // CALC_H
