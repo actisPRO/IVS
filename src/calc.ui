@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>569</width>
+    <width>320</width>
     <height>485</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>320</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="maximumSize">
    <size>
@@ -49,6 +55,9 @@
       </property>
       <property name="text">
        <string>0</string>
+      </property>
+      <property name="maxLength">
+       <number>32</number>
       </property>
       <property name="frame">
        <bool>true</bool>
@@ -552,7 +561,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>569</width>
+     <width>320</width>
      <height>34</height>
     </rect>
    </property>
