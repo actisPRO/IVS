@@ -78,14 +78,16 @@ void Calc::on_backspace_released()
 {
     if (ui->lineEdit->text() == "0") return; // do nothing as zero is an empty input
     if (ui->lineEdit->text().length() == 1)  // only one digit => set input to zero
-    {
         ui->lineEdit->setText("0");
-        return;
-    }
     else
     {
         auto input = ui->lineEdit->text();
         input.resize(input.length() - 1);
         ui->lineEdit->setText(input);
     }
+}
+
+void Calc::on_clear_entry_released()
+{
+    ui->lineEdit->setText("0");
 }
