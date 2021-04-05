@@ -52,14 +52,28 @@ private slots:
 
     void on_clear_entry_released();
 
+    void on_global_clear_released();
+
+    void on_num_dot_released();
+
+    void on_op_sign_released();
+
 private:
     Ui::Calc *ui;
 
+    // Result of the previous equation. Zero by default
     double number1;
+
+    // The number the user is able to change
     double number2;
+
+    // Current operation
     OperationType operation;
 
     // Adds a digit to the line edit
     void addDigit(char digit);
+
+    // Cleans the buffer (number1, number2 and operation) and shows an error message in the line edit
+    void showError(QString error);
 };
 #endif // CALC_H
