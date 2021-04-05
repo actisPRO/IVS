@@ -1,3 +1,5 @@
+#include <string>
+
 #include "calc.h"
 #include "ui_calc.h"
 
@@ -26,6 +28,15 @@ void Calc::addDigit(char digit)
     }
 
     ui->lineEdit->setText(ui->lineEdit->text() + digit);
+}
+
+void Calc::showError(QString error)
+{
+    number1 = 0;
+    number2 = 0;
+    operation = None;
+
+    ui->lineEdit->setText(error);
 }
 
 void Calc::on_num_1_released()
@@ -78,10 +89,18 @@ void Calc::on_num_0_released()
     addDigit('0');
 }
 
+void Calc::on_num_dot_released()
+{
+    //if (ui->lineEdit->text().contains('.')) return;
+
+    addDigit('.');
+}
+
 void Calc::on_backspace_released()
 {
     if (ui->lineEdit->text() == "0") return; // do nothing as zero is an empty input
-    if (ui->lineEdit->text().length() == 1)  // only one digit => set input to zero
+    if ((!ui->lineEdit->text().startsWith('-') && ui->lineEdit->text().length() == 1) // only one digit => set input to zero
+            || (ui->lineEdit->text().startsWith('-') && ui->lineEdit->text().length() == 2)) // two symbols, but the first one is minus
         ui->lineEdit->setText("0");
     else
     {
@@ -103,4 +122,19 @@ void Calc::on_global_clear_released()
     operation = None;
 
     ui->lineEdit->setText("0");
+}
+
+void Calc::on_op_sign_released()
+{
+    bool ok = false;
+    double input = ui->lineEdit->text().toDouble(&ok);
+
+    if (!ok)
+    {
+        showError("Conversion error!");
+        return;
+    }
+
+    input = 0 - input;
+    ui->lineEdit->setText(QString::number(input));
 }
