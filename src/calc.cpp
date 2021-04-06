@@ -15,6 +15,7 @@ Calc::Calc(QWidget *parent)
     number1_set = false;
     number1 = 0;
     number2 = 0;
+    previousOperation = None;
     operation = None;
     waitingForInput = false;
 
@@ -35,7 +36,6 @@ void Calc::addDigit(char digit)
         return;
     }
 
-
     if (ui->lineEdit->text().length() >= MAX_DIGITS) return;
 
     ui->lineEdit->setText(ui->lineEdit->text() + digit);
@@ -51,25 +51,27 @@ void Calc::showError(QString error)
     waitingForInput = true;
 }
 
-double Calc::performOperation(bool *ok)
+double Calc::performCalculation(bool *ok)
 {
     *ok = true;
     switch (operation)
     {
+        case None:
+            return number1;
         case Addition:
-        return math.addition(number1, number2);
+            return math.addition(number1, number2);
         case Substraction:
-        return math.subtraction(number1, number2);
+            return math.subtraction(number1, number2);
         case Multiplcation:
-        return math.multiply(number1, number2);
+            return math.multiply(number1, number2);
         case Division:
-        try {
-            return math.division(number1, number2);
-        } catch (std::runtime_error) {
-            *ok = false;
-            showError("Cannot divide by zero");
-            return 0;
-        }
+            try {
+                return math.division(number1, number2);
+            } catch (std::runtime_error) {
+                *ok = false;
+                showError("Cannot divide by zero");
+                return 0;
+            }
     }
 }
 
@@ -174,115 +176,68 @@ void Calc::on_op_sign_released()
     ui->lineEdit->setText(QString::number(input));
 }
 
-void Calc::on_op_add_released()
+void Calc::performOperation(OperationType nextOperation)
 {
-    bool ok = false;
-    number2 = ui->lineEdit->text().toDouble(&ok);
-    if (!ok)
-    {
-        showError("Conversion error!");
-        return;
-    }
+    waitingForInput = true;
 
+    bool ok = true;
     if (!number1_set)
     {
-       number1 = number2;
+        // todo: error check
+        number1 = ui->lineEdit->text().toDouble(&ok);
+        if (!ok) return;
+        number1_set = true;
+        operation = nextOperation;
     }
     else
     {
-       number1 = performOperation(&ok);
+        // If user presses = button more, then once, we want to repeat the latest 'normal'
+        // operation, using old number2 and displayed text, which is stored in number1 (as a result of the
+        // previous equation)
+        if (nextOperation == None && operation == None)
+        {
+            operation = previousOperation;
+        }
+        else
+        {
+            number2 = ui->lineEdit->text().toDouble(&ok);
+            if (!ok) return;
+        }
+
+        number1 = performCalculation(&ok);
+        if (!ok) return;
+
+        auto result = QString::asprintf("%.16g", number1);
+        ui->lineEdit->setText(result);
+
+        // If user presses the = button again, program will repeat the previous operation
+        // using the same number2, but with a new number1
+        previousOperation = operation;
+        operation = nextOperation;
     }
-    number1_set = true;
-    operation = Addition;
+}
 
-    auto result = QString::asprintf("%.16g", number1);
-    ui->lineEdit->setText(result);
-
-    waitingForInput = true;
+void Calc::on_op_add_released()
+{
+    performOperation(Addition);
 }
 
 void Calc::on_op_sub_released()
 {
-    bool ok = false;
-    number2 = ui->lineEdit->text().toDouble(&ok);
-    if (!ok)
-    {
-        showError("Conversion error!");
-        return;
-    }
-
-    if (!number1_set)
-    {
-       number1 = number2;
-    }
-    else
-    {
-       number1 = performOperation(&ok);
-    }
-    number1_set = true;
-    operation = Substraction;
-
-    auto result = QString::asprintf("%.16g", number1);
-    ui->lineEdit->setText(result);
-
-    waitingForInput = true;
+    performOperation(Substraction);
 }
 
 void Calc::on_op_mult_released()
 {
-    bool ok = false;
-    number2 = ui->lineEdit->text().toDouble(&ok);
-    if (!ok)
-    {
-        showError("Conversion error!");
-        return;
-    }
-
-    if (!number1_set)
-    {
-       number1 = number2;
-    }
-    else
-    {
-       number1 = performOperation(&ok);
-    }
-    number1_set = true;
-    operation = Multiplcation;
-
-    auto result = QString::asprintf("%.16g", number1);
-    ui->lineEdit->setText(result);
-
-    waitingForInput = true;
+    performOperation(Multiplcation);
 }
 
 void Calc::on_op_div_released()
 {
-    bool ok = false;
-    number2 = ui->lineEdit->text().toDouble(&ok);
-    if (!ok)
-    {
-        showError("Conversion error!");
-        return;
-    }
-
-    if (!number1_set)
-    {
-       number1 = number2;
-    }
-    else
-    {
-       number1 = performOperation(&ok);
-    }
-    number1_set = true;
-    operation = Division;
-
-    auto result = QString::asprintf("%.16g", number1);
-    ui->lineEdit->setText(result);
-
-    waitingForInput = true;
+    performOperation(Division);
 }
 
 void Calc::on_op_eq_released()
 {
-
+    performOperation(None);
 }

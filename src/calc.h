@@ -86,6 +86,8 @@ private:
     // Current operation
     OperationType operation;
 
+    OperationType previousOperation;
+
     // Adds a digit to the line edit
     void addDigit(char digit);
 
@@ -94,6 +96,8 @@ private:
 
     // Performs an operation (based on number1, number2 and operation variables)
     // @returns Result of the operation
-    double performOperation(bool *ok);
+    double performCalculation(bool *ok = nullptr);
+
+    void performOperation(OperationType type);
 };
 #endif // CALC_H
