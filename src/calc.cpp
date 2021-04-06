@@ -2,14 +2,21 @@
 
 #include "calc.h"
 #include "ui_calc.h"
+#include "mathLib.h"
+
+#define MAX_DIGITS 16
+
+mathLib math = mathLib();
 
 Calc::Calc(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Calc)
 {
+    number1_set = false;
     number1 = 0;
     number2 = 0;
     operation = None;
+    waitingForInput = false;
 
     ui->setupUi(this);
 }
@@ -21,11 +28,15 @@ Calc::~Calc()
 
 void Calc::addDigit(char digit)
 {
-    if (ui->lineEdit->text() == "0")
+    if (ui->lineEdit->text() == "0" || waitingForInput)
     {
+        waitingForInput = false;
         ui->lineEdit->setText((QString) digit);
         return;
     }
+
+
+    if (ui->lineEdit->text().length() >= MAX_DIGITS) return;
 
     ui->lineEdit->setText(ui->lineEdit->text() + digit);
 }
@@ -37,6 +48,29 @@ void Calc::showError(QString error)
     operation = None;
 
     ui->lineEdit->setText(error);
+    waitingForInput = true;
+}
+
+double Calc::performOperation(bool *ok)
+{
+    *ok = true;
+    switch (operation)
+    {
+        case Addition:
+        return math.addition(number1, number2);
+        case Substraction:
+        return math.subtraction(number1, number2);
+        case Multiplcation:
+        return math.multiply(number1, number2);
+        case Division:
+        try {
+            return math.division(number1, number2);
+        } catch (std::runtime_error) {
+            *ok = false;
+            showError("Cannot divide by zero");
+            return 0;
+        }
+    }
 }
 
 void Calc::on_num_1_released()
@@ -91,7 +125,7 @@ void Calc::on_num_0_released()
 
 void Calc::on_num_dot_released()
 {
-    //if (ui->lineEdit->text().contains('.')) return;
+    if (ui->lineEdit->text().contains('.')) return;
 
     addDigit('.');
 }
@@ -117,6 +151,7 @@ void Calc::on_clear_entry_released()
 
 void Calc::on_global_clear_released()
 {
+    number1_set = false;
     number1 = 0;
     number2 = 0;
     operation = None;
@@ -137,4 +172,117 @@ void Calc::on_op_sign_released()
 
     input = 0 - input;
     ui->lineEdit->setText(QString::number(input));
+}
+
+void Calc::on_op_add_released()
+{
+    bool ok = false;
+    number2 = ui->lineEdit->text().toDouble(&ok);
+    if (!ok)
+    {
+        showError("Conversion error!");
+        return;
+    }
+
+    if (!number1_set)
+    {
+       number1 = number2;
+    }
+    else
+    {
+       number1 = performOperation(&ok);
+    }
+    number1_set = true;
+    operation = Addition;
+
+    auto result = QString::asprintf("%.16g", number1);
+    ui->lineEdit->setText(result);
+
+    waitingForInput = true;
+}
+
+void Calc::on_op_sub_released()
+{
+    bool ok = false;
+    number2 = ui->lineEdit->text().toDouble(&ok);
+    if (!ok)
+    {
+        showError("Conversion error!");
+        return;
+    }
+
+    if (!number1_set)
+    {
+       number1 = number2;
+    }
+    else
+    {
+       number1 = performOperation(&ok);
+    }
+    number1_set = true;
+    operation = Substraction;
+
+    auto result = QString::asprintf("%.16g", number1);
+    ui->lineEdit->setText(result);
+
+    waitingForInput = true;
+}
+
+void Calc::on_op_mult_released()
+{
+    bool ok = false;
+    number2 = ui->lineEdit->text().toDouble(&ok);
+    if (!ok)
+    {
+        showError("Conversion error!");
+        return;
+    }
+
+    if (!number1_set)
+    {
+       number1 = number2;
+    }
+    else
+    {
+       number1 = performOperation(&ok);
+    }
+    number1_set = true;
+    operation = Multiplcation;
+
+    auto result = QString::asprintf("%.16g", number1);
+    ui->lineEdit->setText(result);
+
+    waitingForInput = true;
+}
+
+void Calc::on_op_div_released()
+{
+    bool ok = false;
+    number2 = ui->lineEdit->text().toDouble(&ok);
+    if (!ok)
+    {
+        showError("Conversion error!");
+        return;
+    }
+
+    if (!number1_set)
+    {
+       number1 = number2;
+    }
+    else
+    {
+       number1 = performOperation(&ok);
+    }
+    number1_set = true;
+    operation = Division;
+
+    auto result = QString::asprintf("%.16g", number1);
+    ui->lineEdit->setText(result);
+
+    waitingForInput = true;
+}
+
+void Calc::on_op_eq_released()
+{
+
 }

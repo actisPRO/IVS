@@ -58,14 +58,30 @@ private slots:
 
     void on_op_sign_released();
 
+    void on_op_add_released();
+
+    void on_op_sub_released();
+
+    void on_op_mult_released();
+
+    void on_op_div_released();
+
+    void on_op_eq_released();
+
 private:
     Ui::Calc *ui;
+
+    // Is the first number set, or does it contain the default value?
+    bool number1_set;
 
     // Result of the previous equation. Zero by default
     double number1;
 
     // The number the user is able to change
     double number2;
+
+    // True means, that next input will erase current text of the line edit.
+    bool waitingForInput;
 
     // Current operation
     OperationType operation;
@@ -75,5 +91,9 @@ private:
 
     // Cleans the buffer (number1, number2 and operation) and shows an error message in the line edit
     void showError(QString error);
+
+    // Performs an operation (based on number1, number2 and operation variables)
+    // @returns Result of the operation
+    double performOperation(bool *ok);
 };
 #endif // CALC_H

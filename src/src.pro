@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    calc.cpp
+    calc.cpp \
+    mathLib.cpp
 
 HEADERS += \
-    calc.h
+    calc.h \
+    mathLib.h
 
 FORMS += \
     calc.ui
