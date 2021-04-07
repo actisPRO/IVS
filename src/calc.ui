@@ -24,8 +24,10 @@
   </property>
   <property name="font">
    <font>
-    <family>Nirmala UI</family>
-    <pointsize>12</pointsize>
+    <family>Calibri</family>
+    <pointsize>16</pointsize>
+    <weight>75</weight>
+    <bold>true</bold>
    </font>
   </property>
   <property name="windowTitle">
@@ -33,6 +35,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QLineEdit" name="lineEdit">
       <property name="sizePolicy">
@@ -47,6 +52,14 @@
         <height>50</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>24</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="focusPolicy">
        <enum>Qt::StrongFocus</enum>
       </property>
@@ -54,7 +67,7 @@
        <enum>Qt::NoContextMenu</enum>
       </property>
       <property name="text">
-       <string>0</string>
+       <string notr="true">0</string>
       </property>
       <property name="maxLength">
        <number>32</number>
@@ -562,7 +575,7 @@
      <x>0</x>
      <y>0</y>
      <width>320</width>
-     <height>34</height>
+     <height>32</height>
     </rect>
    </property>
   </widget>
