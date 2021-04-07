@@ -2,6 +2,7 @@
 #define CALC_H
 
 #include <QMainWindow>
+#include <QKeyEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Calc; }
@@ -10,10 +11,12 @@ QT_END_NAMESPACE
 class Calc : public QMainWindow
 {
     Q_OBJECT
-
 public:
     Calc(QWidget *parent = nullptr);
     ~Calc();
+
+    // Keyboard input
+    void keyPressEvent(QKeyEvent *event);
 
     typedef enum {
         None,
@@ -26,6 +29,7 @@ public:
         Pow,
         Root
     } OperationType;
+
 
 private slots:
     void on_num_1_released();
@@ -83,7 +87,7 @@ private:
     // True means, that next input will erase current text of the line edit.
     bool waitingForInput;
 
-    // Current operation
+    // Current operation, selected by user
     OperationType operation;
 
     OperationType previousOperation;
@@ -94,10 +98,12 @@ private:
     // Cleans the buffer (number1, number2 and operation) and shows an error message in the line edit
     void showError(QString error);
 
-    // Performs an operation (based on number1, number2 and operation variables)
+    // Performs a calculation (based on number1, number2 and operation variables)
     // @returns Result of the operation
     double performCalculation(bool *ok = nullptr);
 
+    // Performs an operation (chosen by user): sets values of number1, number2, updates
+    // operation and previousOperation and calls performCalculation (if needed)
     void performOperation(OperationType type);
 };
 #endif // CALC_H
