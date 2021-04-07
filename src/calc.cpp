@@ -27,53 +27,44 @@ Calc::~Calc()
     delete ui;
 }
 
-bool Calc::eventFilter(QObject *target, QEvent *event)
+void Calc::keyPressEvent(QKeyEvent *event)
 {
-    if (target == ui->centralwidget)
-    {
-        if (event->type() == QEvent::KeyPress)
-        {
-            QKeyEvent *keyEvent = (QKeyEvent *) event;
-
-            if (keyEvent->key() == Qt::Key_0)
-                on_num_0_released();
-            else if (keyEvent->key() == Qt::Key_1)
-                on_num_1_released();
-            else if (keyEvent->key() == Qt::Key_2)
-                on_num_2_released();
-            else if (keyEvent->key() == Qt::Key_3)
-                on_num_3_released();
-            else if (keyEvent->key() == Qt::Key_4)
-                on_num_4_released();
-            else if (keyEvent->key() == Qt::Key_5)
-                on_num_5_released();
-            else if (keyEvent->key() == Qt::Key_6)
-                on_num_6_released();
-            else if (keyEvent->key() == Qt::Key_7)
-                on_num_7_released();
-            else if (keyEvent->key() == Qt::Key_8)
-                on_num_8_released();
-            else if (keyEvent->key() == Qt::Key_9)
-                on_num_9_released();
-            else if (keyEvent->key() == Qt::Key_Period || keyEvent->key() == Qt::Key_Comma)
-                on_num_dot_released();
-            else if (keyEvent->key() == Qt::Key_Plus)
-                on_op_add_released();
-            else if (keyEvent->key() == Qt::Key_Minus)
-                on_op_sub_released();
-            else if (keyEvent->key() == Qt::Key_Asterisk || keyEvent->key() == Qt::Key_multiply)
-                on_op_mult_released();
-            else if (keyEvent->key() == Qt::Key_Slash || keyEvent->key() == Qt::Key_division)
-                on_op_div_released();
-            else if (keyEvent->key() == Qt::Key_Equal || keyEvent->key() == Qt::Key_Enter)
-                on_op_eq_released();
-            else if (keyEvent->key() == Qt::Key_Backspace)
-                on_backspace_released();
-            else if (keyEvent->key() == Qt::Key_Delete)
-                on_clear_entry_released();
-        } // if (event->type() == QEvent::KeyPress)
-    } // if (target == ui->centralwidget)
-    return QWidget::eventFilter(target, event);
+    if (event->key() == Qt::Key_0)
+        on_num_0_released();
+    else if (event->key() == Qt::Key_1)
+        on_num_1_released();
+    else if (event->key() == Qt::Key_2)
+        on_num_2_released();
+    else if (event->key() == Qt::Key_3)
+        on_num_3_released();
+    else if (event->key() == Qt::Key_4)
+        on_num_4_released();
+    else if (event->key() == Qt::Key_5)
+        on_num_5_released();
+    else if (event->key() == Qt::Key_6)
+        on_num_6_released();
+    else if (event->key() == Qt::Key_7)
+        on_num_7_released();
+    else if (event->key() == Qt::Key_8)
+        on_num_8_released();
+    else if (event->key() == Qt::Key_9)
+        on_num_9_released();
+    else if (event->key() == Qt::Key_Period || event->key() == Qt::Key_Comma)
+        on_num_dot_released();
+    else if (event->key() == Qt::Key_Plus)
+        on_op_add_released();
+    else if (event->key() == Qt::Key_Minus)
+        on_op_sub_released();
+    else if (event->key() == Qt::Key_Asterisk || event->key() == Qt::Key_multiply)
+        on_op_mult_released();
+    else if (event->key() == Qt::Key_Slash || event->key() == Qt::Key_division)
+        on_op_div_released();
+    else if (event->key() == Qt::Key_Equal || event->key() == Qt::Key_Enter)
+        on_op_eq_released();
+    else if (event->key() == Qt::Key_Backspace)
+        on_backspace_released();
+    else if (event->key() == Qt::Key_Delete)
+        on_clear_entry_released();
 }
 
 void Calc::addDigit(char digit)
