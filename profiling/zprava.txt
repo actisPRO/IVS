@@ -1,0 +1,8 @@
+Program tráví nejvíce času ve funkci mathLib::addition(double, double)
+a nejčastější používanou funkcí z knihovny
+mathLib.h je mathLib::addition(double, double).
+Zaměřil bych se tedy při optimalizaci kódu na rychlejší
+realizaci sčítání. Ale jelikož počet vstupů
+není předem znám není tato optimalizace nutně potřebná.
+Jde také spojit funkci pro výpočet průměru s funkcí pro
+výpočet odchylku, ale tímto by došlo ke zbytečným komplikacím.
