@@ -19,6 +19,7 @@ Calc::Calc(QWidget *parent)
     operation = None;
     waitingForInput = false;
 
+    this->installEventFilter(this);
     ui->setupUi(this);
 }
 
@@ -27,58 +28,109 @@ Calc::~Calc()
     delete ui;
 }
 
+/*bool Calc::eventFilter(QObject *target, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->key() == Qt::Key_Backspace)
+        {
+            ui->backspace->animateClick();
+            return true;
+        }
+    }
+
+    return QWidget::eventFilter(target, event);
+}*/
+
 void Calc::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_0)
-        on_num_0_released();
+    {
+        ui->num_0->animateClick();
+    }
     else if (event->key() == Qt::Key_1)
-        on_num_1_released();
+    {
+        ui->num_1->animateClick();
+    }
     else if (event->key() == Qt::Key_2)
-        on_num_2_released();
+    {
+        ui->num_2->animateClick();
+    }
     else if (event->key() == Qt::Key_3)
-        on_num_3_released();
+    {
+        ui->num_3->animateClick();
+    }
     else if (event->key() == Qt::Key_4)
-        on_num_4_released();
+    {
+        ui->num_4->animateClick();
+    }
     else if (event->key() == Qt::Key_5)
-        on_num_5_released();
+    {
+        ui->num_5->animateClick();
+    }
     else if (event->key() == Qt::Key_6)
-        on_num_6_released();
+    {
+        ui->num_6->animateClick();
+    }
     else if (event->key() == Qt::Key_7)
-        on_num_7_released();
+    {
+        ui->num_7->animateClick();
+    }
     else if (event->key() == Qt::Key_8)
-        on_num_8_released();
+    {
+        ui->num_8->animateClick();
+    }
     else if (event->key() == Qt::Key_9)
-        on_num_9_released();
+    {
+        ui->num_9->animateClick();
+    }
     else if (event->key() == Qt::Key_Period || event->key() == Qt::Key_Comma)
-        on_num_dot_released();
+    {
+        ui->num_dot->animateClick();
+    }
     else if (event->key() == Qt::Key_Plus)
-        on_op_add_released();
+    {
+        ui->op_add->animateClick();
+    }
     else if (event->key() == Qt::Key_Minus)
-        on_op_sub_released();
+    {
+        ui->op_sub->animateClick();
+    }
     else if (event->key() == Qt::Key_Asterisk || event->key() == Qt::Key_multiply)
-        on_op_mult_released();
+    {
+        ui->op_mult->animateClick();
+    }
     else if (event->key() == Qt::Key_Slash || event->key() == Qt::Key_division)
-        on_op_div_released();
+    {
+        ui->op_div->animateClick();
+    }
     else if (event->key() == Qt::Key_Equal || event->key() == Qt::Key_Enter)
-        on_op_eq_released();
+    {
+        ui->op_eq->animateClick();
+    }
     else if (event->key() == Qt::Key_Backspace)
-        on_backspace_released();
+    {
+        ui->backspace->animateClick();
+    }
     else if (event->key() == Qt::Key_Delete)
-        on_clear_entry_released();
+    {
+        ui->clear_entry->animateClick();
+    }
 }
 
 void Calc::addDigit(char digit)
 {
-    if (ui->lineEdit->text() == "0" || waitingForInput)
+    if (ui->result->text() == "0" || waitingForInput)
     {
         waitingForInput = false;
-        ui->lineEdit->setText((QString) digit);
+        ui->result->setText((QString) digit);
         return;
     }
 
-    if (ui->lineEdit->text().length() >= MAX_DIGITS) return;
+    if (ui->result->text().length() >= MAX_DIGITS) return;
 
-    ui->lineEdit->setText(ui->lineEdit->text() + digit);
+    ui->result->setText(ui->result->text() + digit);
 }
 
 void Calc::showError(QString error)
@@ -87,7 +139,7 @@ void Calc::showError(QString error)
     number2 = 0;
     operation = None;
 
-    ui->lineEdit->setText(error);
+    ui->result->setText(error);
     waitingForInput = true;
 }
 
@@ -129,7 +181,7 @@ void Calc::performOperation(OperationType nextOperation)
     bool ok = true;
     if (!number1_set)
     {
-        number1 = ui->lineEdit->text().toDouble(&ok);
+        number1 = ui->result->text().toDouble(&ok);
         if (!ok)
         {
             showError("Conversion error!");
@@ -149,7 +201,7 @@ void Calc::performOperation(OperationType nextOperation)
         }
         else
         {
-            number2 = ui->lineEdit->text().toDouble(&ok);
+            number2 = ui->result->text().toDouble(&ok);
             if (!ok)
             {
                 showError("Conversion error!");
@@ -161,7 +213,7 @@ void Calc::performOperation(OperationType nextOperation)
         if (!ok) return;
 
         auto result = QString::asprintf("%.16g", number1);
-        ui->lineEdit->setText(result);
+        ui->result->setText(result);
 
         // If user presses the = button again, program will repeat the previous operation
         // using the same number2, but with a new number1
@@ -222,28 +274,28 @@ void Calc::on_num_0_released()
 
 void Calc::on_num_dot_released()
 {
-    if (ui->lineEdit->text().contains('.')) return;
+    if (ui->result->text().contains('.')) return;
 
     addDigit('.');
 }
 
 void Calc::on_backspace_released()
 {
-    if (ui->lineEdit->text() == "0") return; // do nothing as zero is an empty input
-    if ((!ui->lineEdit->text().startsWith('-') && ui->lineEdit->text().length() == 1) // only one digit => set input to zero
-            || (ui->lineEdit->text().startsWith('-') && ui->lineEdit->text().length() == 2)) // two symbols, but the first one is minus
-        ui->lineEdit->setText("0");
+    if (ui->result->text() == "0") return; // do nothing as zero is an empty input
+    if ((!ui->result->text().startsWith('-') && ui->result->text().length() == 1) // only one digit => set input to zero
+            || (ui->result->text().startsWith('-') && ui->result->text().length() == 2)) // two symbols, but the first one is minus
+        ui->result->setText("0");
     else
     {
-        auto input = ui->lineEdit->text();
+        auto input = ui->result->text();
         input.resize(input.length() - 1);
-        ui->lineEdit->setText(input);
+        ui->result->setText(input);
     }
 }
 
 void Calc::on_clear_entry_released()
 {
-    ui->lineEdit->setText("0");
+    ui->result->setText("0");
     waitingForInput = true;
 }
 
@@ -254,13 +306,13 @@ void Calc::on_global_clear_released()
     number2 = 0;
     operation = None;
 
-    ui->lineEdit->setText("0");
+    ui->result->setText("0");
 }
 
 void Calc::on_op_sign_released()
 {
     bool ok = false;
-    double input = ui->lineEdit->text().toDouble(&ok);
+    double input = ui->result->text().toDouble(&ok);
 
     if (!ok)
     {
@@ -269,7 +321,7 @@ void Calc::on_op_sign_released()
     }
 
     input = 0 - input;
-    ui->lineEdit->setText(QString::number(input));
+    ui->result->setText(QString::number(input));
 }
 
 void Calc::on_op_add_released()
