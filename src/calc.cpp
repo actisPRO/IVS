@@ -28,21 +28,6 @@ Calc::~Calc()
     delete ui;
 }
 
-/*bool Calc::eventFilter(QObject *target, QEvent *event)
-{
-    if (event->type() == QEvent::KeyPress)
-    {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        if (keyEvent->key() == Qt::Key_Backspace)
-        {
-            ui->backspace->animateClick();
-            return true;
-        }
-    }
-
-    return QWidget::eventFilter(target, event);
-}*/
-
 void Calc::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_0)
@@ -131,6 +116,7 @@ void Calc::addDigit(char digit)
     if (ui->result->text().length() >= MAX_DIGITS) return;
 
     ui->result->setText(ui->result->text() + digit);
+    updateTextSize();
 }
 
 void Calc::showError(QString error)
@@ -141,6 +127,8 @@ void Calc::showError(QString error)
 
     ui->result->setText(error);
     waitingForInput = true;
+
+    updateTextSize();
 }
 
 double Calc::performCalculation(bool *ok)
@@ -212,7 +200,7 @@ void Calc::performOperation(OperationType nextOperation)
         number1 = performCalculation(&ok);
         if (!ok) return;
 
-        auto result = QString::asprintf("%.16g", number1);
+        auto result = QString::asprintf("%.30g", number1);
         ui->result->setText(result);
 
         // If user presses the = button again, program will repeat the previous operation
@@ -220,6 +208,23 @@ void Calc::performOperation(OperationType nextOperation)
         previousOperation = operation;
         operation = nextOperation;
     }
+
+    updateTextSize();
+}
+
+void Calc::updateTextSize()
+{
+    auto font = ui->result->font();
+    if (ui->result->text().length() <= 18)
+        font.setPointSize(25);
+    else if (ui->result->text().length() <= 21)
+        font.setPointSize(20);
+    else if (ui->result->text().length() <= 26)
+        font.setPointSize(16);
+    else font.setPointSize(13);
+
+
+    ui->result->setFont(font);
 }
 
 void Calc::on_num_1_released()
@@ -290,6 +295,7 @@ void Calc::on_backspace_released()
         auto input = ui->result->text();
         input.resize(input.length() - 1);
         ui->result->setText(input);
+        updateTextSize();
     }
 }
 
@@ -297,6 +303,7 @@ void Calc::on_clear_entry_released()
 {
     ui->result->setText("0");
     waitingForInput = true;
+    updateTextSize();
 }
 
 void Calc::on_global_clear_released()
@@ -307,6 +314,7 @@ void Calc::on_global_clear_released()
     operation = None;
 
     ui->result->setText("0");
+    updateTextSize();
 }
 
 void Calc::on_op_sign_released()
@@ -322,6 +330,7 @@ void Calc::on_op_sign_released()
 
     input = 0 - input;
     ui->result->setText(QString::number(input));
+    updateTextSize();
 }
 
 void Calc::on_op_add_released()
