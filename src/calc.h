@@ -92,6 +92,9 @@ private:
 
     OperationType previousOperation;
 
+    // Updates the size of the result label text according to the amount of symbols.
+    void updateTextSize();
+
     // Adds a digit to the result label
     void addDigit(char digit);
 
