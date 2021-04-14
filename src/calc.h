@@ -92,10 +92,10 @@ private:
 
     OperationType previousOperation;
 
-    // Adds a digit to the line edit
+    // Adds a digit to the result label
     void addDigit(char digit);
 
-    // Cleans the buffer (number1, number2 and operation) and shows an error message in the line edit
+    // Cleans the buffer (number1, number2 and operation) and shows an error message in the result label
     void showError(QString error);
 
     // Performs a calculation (based on number1, number2 and operation variables)
