@@ -150,6 +150,9 @@ long long mathLib::factorial(long long number)
 {
     if (number < 0)
         throw std::runtime_error("Factorial is definied only for non-negative numbers");
+    if (number > 20)
+        throw std::runtime_error("Factorial max number is 20");
+
     long long returnValue = 1;
     for(int i = 1; i <= number; i++)
         returnValue *= i;

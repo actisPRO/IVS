@@ -149,8 +149,6 @@ private:
      */
     void showError(QString error);
 
-    double performCalculation_1op(double number, bool *ok = nullptr);
-
     /**
      * @brief Performs a calculation (based on number1, number2 and operation variables).
      * @param Will be true, if the operation was succesfull.
