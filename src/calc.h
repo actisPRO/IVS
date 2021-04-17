@@ -1,3 +1,10 @@
+/**
+ * @file    calc.h
+ * @author  Denis Karev (xkarev00@stud.fit.vutbr.cz)
+ *
+ * @brief   Header file for the calculator GUI.
+ */
+
 #ifndef CALC_H
 #define CALC_H
 
@@ -15,7 +22,10 @@ public:
     Calc(QWidget *parent = nullptr);
     ~Calc();
 
-    // Keyboard input
+    /**
+     * @brief Keyboard event handler for keyboard input.
+     * @param event
+     */
     void keyPressEvent(QKeyEvent *event);
 
     typedef enum {
@@ -72,41 +82,84 @@ private slots:
 
     void on_op_eq_released();
 
+    void on_op_root_released();
+
+    void on_op_ln_released();
+
+    void on_op_pow_released();
+
+    void on_op_fac_released();
+
 private:
     Ui::Calc *ui;
 
-    // Is the first number set, or does it contain the default value?
+    /**
+     * @brief Is the first number set, or does it contain the default (zero) value.
+     */
     bool number1_set;
 
-    // Result of the previous equation. Zero by default
+    /**
+     * @brief Result of the previous operation.
+     *
+     * Dividend for division operation.
+     * Radicant in root operation.
+     * Base in pow opeartion.
+     * Number in factorial and natural logarithm operations, if number2 is not set.
+     */
     double number1;
 
-    // The number the user is able to change
+    /**
+     * @brief User input.
+     * Divisor for division operation.
+     * Index in root operation.
+     * Exponent in pow operation.
+     * Number in factorial and natural logarithm operations, if set.
+     */
     double number2;
 
-    // True means, that next input will erase current text of the line edit.
+    /**
+     * @brief If true, next input will erase content in the window
+     */
     bool waitingForInput;
 
-    // Current operation, selected by user
+    /**
+     * @brief Operation, selected by user
+     */
     OperationType operation;
 
+    /**
+     * @brief Operation, selected by user before the one in 'operation' variable
+     */
     OperationType previousOperation;
 
-    // Updates the size of the result label text according to the amount of symbols.
+    /**
+     * @brief Updates the font size of the result label to match the number of characters.
+     */
     void updateTextSize();
 
-    // Adds a digit to the result label
+    /**
+     * @brief Adds a digit to the result label
+     * @param Digit
+     */
     void addDigit(char digit);
 
-    // Cleans the buffer (number1, number2 and operation) and shows an error message in the result label
+    /**
+     * @brief Cleans the buffer (number1, number2 and operation) and shows an error message in the result label
+     * @param Error message
+     */
     void showError(QString error);
 
-    // Performs a calculation (based on number1, number2 and operation variables)
-    // @returns Result of the operation
+    /**
+     * @brief Performs a calculation (based on number1, number2 and operation variables).
+     * @param Will be true, if the operation was succesfull.
+     * @return Result of the calculation.
+     */
     double performCalculation(bool *ok = nullptr);
 
-    // Performs an operation (chosen by user): sets values of number1, number2, updates
-    // operation and previousOperation and calls performCalculation (if needed)
+    /**
+     * @brief Performs an operation: sets values of number1, number2, updates operation and previousOperation and calls performCalculation (if needed)
+     * @param Operation, chosen by user.
+     */
     void performOperation(OperationType type);
 };
 #endif // CALC_H
