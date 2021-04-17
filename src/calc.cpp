@@ -207,7 +207,7 @@ void Calc::performOperation(OperationType nextOperation)
         double result = 0;
         try {
             result = nextOperation == Factorial ? math.factorial(num) : math.log(num);
-        } catch (std::exception e) {
+        } catch (std::runtime_error e) {
             showError(e.what());
             return;
         }
