@@ -149,12 +149,14 @@ private:
      */
     void showError(QString error);
 
+    double performCalculation_1op(double number, bool *ok = nullptr);
+
     /**
      * @brief Performs a calculation (based on number1, number2 and operation variables).
      * @param Will be true, if the operation was succesfull.
      * @return Result of the calculation.
      */
-    double performCalculation(bool *ok = nullptr);
+    double performCalculation_2op(bool *ok = nullptr);
 
     /**
      * @brief Performs an operation: sets values of number1, number2, updates operation and previousOperation and calls performCalculation (if needed)

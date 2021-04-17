@@ -138,7 +138,7 @@ void Calc::showError(QString error)
     updateTextSize();
 }
 
-double Calc::performCalculation(bool *ok)
+double Calc::performCalculation_2op(bool *ok)
 {
     *ok = true;
     switch (operation)
@@ -183,16 +183,9 @@ double Calc::performCalculation(bool *ok)
                 *ok = false;
                 showError(err.what());
             }
-        case Factorial:
-            try {
-                if (waitingForInput)
-                    return math.factorial(number1);
-                else
-                    return math.factorial(number2);
-            }  catch (std::runtime_error err) {
-                *ok = false;
-                showError(err.what());
-            }
+        default:
+            *ok = false;
+            showError("Unexpected operation");
     } // switch (operation)
 
     return 0;
@@ -200,7 +193,43 @@ double Calc::performCalculation(bool *ok)
 
 void Calc::performOperation(OperationType nextOperation)
 {
-    // Means, that there was no input (eg. user pressed 5, then +, then -):
+    // Single-operand opeartion are ran instantly, without waiting for any further input.
+    bool ok = true;
+    if (nextOperation == Factorial || nextOperation == Logarithm)
+    {
+        auto num = ui->result->text().toDouble(&ok);
+        if (!ok)
+        {
+            showError("Conversion error!");
+            return;
+        }
+
+        double result = 0;
+        try {
+            result = nextOperation == Factorial ? math.factorial(num) : math.log(num);
+        } catch (std::exception e) {
+            showError(e.what());
+            return;
+        }
+
+        if (!number1_set)
+        {
+            number1 = result;
+            number1_set = true;
+        }
+        else
+        {
+            number2 = result;
+        }
+
+        auto resText = QString::asprintf("%.30g", result);
+        ui->result->setText(resText);
+        updateTextSize();
+
+        return;
+    }
+
+    // There was no input (eg. user pressed 5, then +, then -):
     // user wants to change the operation
     if (nextOperation != None && waitingForInput)
     {
@@ -209,7 +238,6 @@ void Calc::performOperation(OperationType nextOperation)
     }
 
     waitingForInput = true;
-    bool ok = true;
     if (!number1_set)
     {
         number1 = ui->result->text().toDouble(&ok);
@@ -219,10 +247,13 @@ void Calc::performOperation(OperationType nextOperation)
             return;
         }
         number1_set = true;
+
         operation = nextOperation;
     }
     else
     {
+        // If operation requires only 1 operand, perform this operation first ands
+
         // If user presses = button more, then once, we want to repeat the latest 'normal'
         // operation, using old number2 and displayed text, which is stored in number1 (as a result of the
         // previous equation)
@@ -240,7 +271,7 @@ void Calc::performOperation(OperationType nextOperation)
             }
         }
 
-        number1 = performCalculation(&ok);
+        number1 = performCalculation_2op(&ok);
         if (!ok) return;
 
         auto result = QString::asprintf("%.30g", number1);
@@ -250,7 +281,7 @@ void Calc::performOperation(OperationType nextOperation)
         // using the same number2, but with a new number1
         previousOperation = operation;
         operation = nextOperation;
-    }
+    } // if (!number1_set) ... else
 
     updateTextSize();
 }
