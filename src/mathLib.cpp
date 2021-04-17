@@ -99,9 +99,9 @@ double mathLib::division(double divident, double divisor)
 double mathLib::sqrt(long long index,double radicant)
 {
     if (radicant <0)
-        throw std::runtime_error("Radicant has to grather or equal to zero.");
+        throw std::runtime_error("Radicant must be greater or equal to zero.");
     if (index < 0)
-        throw std::runtime_error("index has to be natural number.");
+        throw std::runtime_error("Index must be a natural number.");
     double x0, x = 1;
     do {
         x0 = x;
@@ -129,7 +129,7 @@ double mathLib::sqrt(long long index,double radicant)
 double mathLib::pow(long long exponent, double base)
 {
     if (exponent < 0)
-        throw std::runtime_error("Exponent is not natural number.");
+        throw std::runtime_error("Exponent is not a natural number.");
     double returnValue = 1;
     for(int i = 0; i < exponent; i++) returnValue *= base;
     return returnValue;
@@ -149,7 +149,7 @@ double mathLib::pow(long long exponent, double base)
 long long mathLib::factorial(long long number)
 {
     if (number < 0)
-        throw std::runtime_error("You can use only natural number.");
+        throw std::runtime_error("Factorial is definied only for non-negative numbers");
     long long returnValue = 1;
     for(int i = 1; i <= number; i++)
         returnValue *= i;
