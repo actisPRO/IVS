@@ -1,3 +1,10 @@
+/**
+ * @file    calc.cpp
+ * @author  Denis Karev (xkarev00@stud.fit.vutbr.cz)
+ *
+ * @brief   Logic for the calculator GUI.
+ */
+
 #include <string>
 
 #include "calc.h"
@@ -102,7 +109,7 @@ void Calc::keyPressEvent(QKeyEvent *event)
     {
         ui->clear_entry->animateClick();
     }
-}
+} // void Calc::keyPressEvent(QKeyEvent *event)
 
 void Calc::addDigit(char digit)
 {
@@ -152,8 +159,44 @@ double Calc::performCalculation(bool *ok)
                 showError("Cannot divide by zero");
                 return 0;
             }
-    }
-}
+        case Root:
+            try {
+                return math.sqrt(number2, number1);
+            } catch (std::runtime_error err) {
+                *ok = false;
+                showError(err.what());
+            }
+        case Logarithm:
+            try {
+                if (waitingForInput)
+                    return math.log(number1);
+                else
+                    return math.log(number2);
+            } catch (std::runtime_error err) {
+                *ok = false;
+                showError(err.what());
+            }
+        case Pow:
+            try {
+                return math.pow(number2, number1);
+            }  catch (std::runtime_error err) {
+                *ok = false;
+                showError(err.what());
+            }
+        case Factorial:
+            try {
+                if (waitingForInput)
+                    return math.factorial(number1);
+                else
+                    return math.factorial(number2);
+            }  catch (std::runtime_error err) {
+                *ok = false;
+                showError(err.what());
+            }
+    } // switch (operation)
+
+    return 0;
+} // double Calc::performCalculation(bool *ok)
 
 void Calc::performOperation(OperationType nextOperation)
 {
@@ -358,4 +401,22 @@ void Calc::on_op_eq_released()
     performOperation(None);
 }
 
+void Calc::on_op_root_released()
+{
+    performOperation(Root);
+}
 
+void Calc::on_op_ln_released()
+{
+    performOperation(Logarithm);
+}
+
+void Calc::on_op_pow_released()
+{
+    performOperation(Pow);
+}
+
+void Calc::on_op_fac_released()
+{
+    performOperation(Factorial);
+}
