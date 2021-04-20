@@ -547,6 +547,9 @@
             <height>50</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Change sign of the current input</string>
+          </property>
           <property name="text">
            <string>±</string>
           </property>
