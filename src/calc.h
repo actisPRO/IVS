@@ -138,6 +138,15 @@ private:
     void updateTextSize();
 
     /**
+     * @brief Updates the equation label.
+     * @param First number
+     * @param Second number
+     * @param Operation type
+     * @param If true, will be formatted as follows: n1 OP n2 = or OP(np1, np2). If false, np1 OP or OP(np1, ?)
+     */
+    void updateEquationLabel(double number1, double number2, OperationType operation, bool showNumber2 = true);
+
+    /**
      * @brief Adds a digit to the result label
      * @param Digit
      */

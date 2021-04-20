@@ -133,6 +133,7 @@ void Calc::showError(QString error)
     operation = None;
 
     ui->result->setText(error);
+    ui->expression->setText("");
     waitingForInput = true;
 
     updateTextSize();
@@ -234,6 +235,8 @@ void Calc::performOperation(OperationType nextOperation)
     if (nextOperation != None && waitingForInput)
     {
         operation = nextOperation;
+        updateEquationLabel(number1, 0, nextOperation, false);
+
         return;
     }
 
@@ -249,11 +252,10 @@ void Calc::performOperation(OperationType nextOperation)
         number1_set = true;
 
         operation = nextOperation;
+        updateEquationLabel(number1, 0, nextOperation, false);
     }
     else
     {
-        // If operation requires only 1 operand, perform this operation first ands
-
         // If user presses = button more, then once, we want to repeat the latest 'normal'
         // operation, using old number2 and displayed text, which is stored in number1 (as a result of the
         // previous equation)
@@ -271,11 +273,13 @@ void Calc::performOperation(OperationType nextOperation)
             }
         }
 
+        double old_num1 = number1;
         number1 = performCalculation_2op(&ok);
         if (!ok) return;
 
         auto result = QString::asprintf("%.30g", number1);
         ui->result->setText(result);
+        updateEquationLabel(old_num1, number2, operation);
 
         // If user presses the = button again, program will repeat the previous operation
         // using the same number2, but with a new number1
@@ -284,6 +288,44 @@ void Calc::performOperation(OperationType nextOperation)
     } // if (!number1_set) ... else
 
     updateTextSize();
+}
+
+void Calc::updateEquationLabel(double number1, double number2, OperationType operation, bool showNumber2)
+{
+    QString text = "";
+    if (operation == Addition || operation == Substraction || operation == Multiplcation || operation == Division)
+    {
+        std::string opSymbol;
+        switch (operation) {
+        case Addition:
+            opSymbol = "+";
+            break;
+        case Substraction:
+            opSymbol = "-";
+            break;
+        case Multiplcation:
+            opSymbol = "×";
+            break;
+        case Division:
+            opSymbol = "÷";
+            break;
+        }
+
+        text = showNumber2 ? QString::asprintf("%.5g %s %.5g =", number1, opSymbol.c_str(), number2)
+                           : QString::asprintf("%.5g %s", number1, opSymbol.c_str());
+    }
+    else if (operation == Root)
+    {
+        text = showNumber2 ? QString::asprintf("Root(%.5g, %.5g) =", number1, number2)
+                           : QString::asprintf("Root(%.5g, ?)", number1);
+    }
+    else if (operation == Pow)
+    {
+        text = showNumber2 ? QString::asprintf("Pow(%.5g, %.5g) =", number1, number2)
+                           : QString::asprintf("Pow(%.5g, ?)", number1);
+    }
+
+    ui->expression->setText(text);
 }
 
 void Calc::updateTextSize()
@@ -362,7 +404,8 @@ void Calc::on_backspace_released()
 {
     if (ui->result->text() == "0") return; // do nothing as zero is an empty input
     if ((!ui->result->text().startsWith('-') && ui->result->text().length() == 1) // only one digit => set input to zero
-            || (ui->result->text().startsWith('-') && ui->result->text().length() == 2)) // two symbols, but the first one is minus
+            || (ui->result->text().startsWith('-') && ui->result->text().length() == 2) // two symbols, but the first one is minus
+            || waitingForInput) // clear the input field if waiting for new input
         ui->result->setText("0");
     else
     {
@@ -388,6 +431,7 @@ void Calc::on_global_clear_released()
     operation = None;
 
     ui->result->setText("0");
+    ui->expression->setText("");
     updateTextSize();
 }
 
