@@ -115,7 +115,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Factorial</string>
+           <string>Factorial. Keyboard shortcut: !</string>
           </property>
           <property name="text">
            <string>!</string>
@@ -137,7 +137,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Clear current input</string>
+           <string>Clear current input. Keyboard shortcut: Delete</string>
           </property>
           <property name="text">
            <string>CE</string>
@@ -159,7 +159,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Clear current input and the expression</string>
+           <string>Clear current input and the expression. Keyboard shortcut: C</string>
           </property>
           <property name="text">
            <string>C</string>
@@ -207,7 +207,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Exponentiation. The first number is base and the second is exponent</string>
+           <string>Exponentiation. The first number is base and the second is exponent. Keyboard shortcut: P</string>
           </property>
           <property name="text">
            <string>^</string>
@@ -229,7 +229,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Root. Degree is the second number.</string>
+           <string>Root. Degree is the second number. Keyboard shortcut: R</string>
           </property>
           <property name="text">
            <string>√ </string>
@@ -251,7 +251,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Natural logarithm</string>
+           <string>Natural logarithm. Keyboard shortcut: L</string>
           </property>
           <property name="text">
            <string>ln</string>
@@ -273,7 +273,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Division</string>
+           <string>Division. Keyboard shortcut: /</string>
           </property>
           <property name="text">
            <string>÷</string>
@@ -356,7 +356,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Addition</string>
+           <string>Addition. Keyboard shortcut: +</string>
           </property>
           <property name="text">
            <string>+</string>
@@ -439,7 +439,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Substraction</string>
+           <string>Substraction. Keyboard shortcut: -</string>
           </property>
           <property name="text">
            <string>-</string>
@@ -522,7 +522,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Multiplication</string>
+           <string>Multiplication. Keyboard shortcut: *</string>
           </property>
           <property name="text">
            <string>×</string>
@@ -548,7 +548,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Change sign of the current input</string>
+           <string>Change sign of the current input. Keyboard shortcut: S</string>
           </property>
           <property name="text">
            <string>±</string>
@@ -588,6 +588,9 @@
             <height>50</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Decimal dot. Keyboard shortcut: . or ,</string>
+          </property>
           <property name="text">
            <string>.</string>
           </property>
@@ -608,7 +611,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Calculate!</string>
+           <string>Calculate! Keyboard shortcut: =</string>
           </property>
           <property name="text">
            <string>=</string>

@@ -109,6 +109,30 @@ void Calc::keyPressEvent(QKeyEvent *event)
     {
         ui->clear_entry->animateClick();
     }
+    else if (event->key() == Qt::Key_C)
+    {
+        ui->global_clear->animateClick();
+    }
+    else if (event->key() == Qt::Key_Exclam)
+    {
+        ui->op_fac->animateClick();
+    }
+    else if (event->key() == Qt::Key_P)
+    {
+        ui->op_pow->animateClick();
+    }
+    else if (event->key() == Qt::Key_L)
+    {
+        ui->op_ln->animateClick();
+    }
+    else if (event->key() == Qt::Key_R)
+    {
+        ui->op_root->animateClick();
+    }
+    else if (event->key() == Qt::Key_S)
+    {
+        ui->op_sign->animateClick();
+    }
 } // void Calc::keyPressEvent(QKeyEvent *event)
 
 void Calc::addDigit(char digit)
