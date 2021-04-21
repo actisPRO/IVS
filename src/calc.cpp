@@ -179,7 +179,7 @@ double Calc::performCalculation_2op(bool *ok)
         case Division:
             try {
                 return math.division(number1, number2);
-            } catch (std::runtime_error) {
+            } catch (const std::runtime_error &e) {
                 *ok = false;
                 showError("Cannot divide by zero");
                 return 0;
@@ -187,7 +187,7 @@ double Calc::performCalculation_2op(bool *ok)
         case Root:
             try {
                 return math.sqrt(number2, number1);
-            } catch (std::runtime_error err) {
+            } catch (const std::runtime_error &err) {
                 *ok = false;
                 showError(err.what());
             }
@@ -197,14 +197,14 @@ double Calc::performCalculation_2op(bool *ok)
                     return math.log(number1);
                 else
                     return math.log(number2);
-            } catch (std::runtime_error err) {
+            } catch (const std::runtime_error &err) {
                 *ok = false;
                 showError(err.what());
             }
         case Pow:
             try {
                 return math.pow(number2, number1);
-            }  catch (std::runtime_error err) {
+            }  catch (const std::runtime_error &err) {
                 *ok = false;
                 showError(err.what());
             }
@@ -232,7 +232,7 @@ void Calc::performOperation(OperationType nextOperation)
         double result = 0;
         try {
             result = nextOperation == Factorial ? math.factorial(num) : math.log(num);
-        } catch (std::runtime_error e) {
+        } catch (const std::runtime_error &e) {
             showError(e.what());
             return;
         }
@@ -332,6 +332,9 @@ void Calc::updateEquationLabel(double number1, double number2, OperationType ope
             break;
         case Division:
             opSymbol = "÷";
+            break;
+        default:
+            opSymbol = "";
             break;
         }
 
