@@ -115,7 +115,6 @@ TEST(test,factorial)
         cout << "Pořadí: " << i << " Faktoriál: "<< endl<< valuesF[i]<< "  = " << fixed << result[i]<< endl;
     }
     EXPECT_ANY_THROW(m.factorial(-10));
-    EXPECT_ANY_THROW(m.factorial(1.547));
 }
 TEST(test,sqrt)
 {
