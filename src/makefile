@@ -1,6 +1,7 @@
 gcc=g++ -std=c++14 -pg -g mathLib.cpp stddev.cpp -o stddev -lm
 gtest=g++ test.cpp mathLib.cpp -lgtest -lgtest_main -pthread
 del=rm -f
+test_out=./a.out
 gtest_url=https://codeload.github.com/google/googletest/zip/refs/heads/master
 zipe_file=IVS-main.zip	
 all:	
@@ -16,7 +17,7 @@ test:
 	unzip master
 	cd googletest-master && cmake .
 	$(gtest)
-	./a.out
+	$(test_out)
 run: 		
 	./src
 	
