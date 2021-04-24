@@ -28,7 +28,8 @@ pack:
 
 
 doc:	Doxyfile
-	doxygen
+	doxygen -g Doxyfile
+	doxygen Doxyfile
 clean: 
 	$(del) *.o
 	$(del) *.zip
@@ -41,5 +42,7 @@ clean:
 	$(del) ui_*
 	$(del) -r googletest-master
 	$(del) master
+	$(del) -r html
+	$(del) -r latex
 profile:
 	$(gcc)
