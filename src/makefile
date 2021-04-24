@@ -44,5 +44,6 @@ clean:
 	$(del) master
 	$(del) -r html
 	$(del) -r latex
+	$(del) *.bak
 profile:
 	$(gcc)
