@@ -39,6 +39,7 @@ clean:
 	$(del) -r documentation
 	$(del) moc*
 	$(del) ui_*
-	$(del) googletest-master
+	$(del) -r googletest-master
+	$(del) master
 profile:
 	$(gcc)
