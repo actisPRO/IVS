@@ -1,0 +1,11 @@
+Úkoly: 
+	- každý splnil svou část podle plánu
+
+Termíny:
+	- špatně naplánovaná návaznost makefile a uživatelské dokumentace
+	- makefile není možné vytvořit bez programové dokumentace
+	- uživatelská dokumentace nelze vytvořit bez instalátoru
+	- na řešení této nesrovnalosti jsme využili část týdne, který byl plánován jako rezerva
+	
+Komunikační kanály:
+	- fungovaly tak jak bylo plánováno

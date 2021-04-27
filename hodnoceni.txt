@@ -1,0 +1,4 @@
+xhaury00 97 (profiling, dokumentace)
+xrezni29 97 (testování, makefile)
+xkarev00 109 (GUI, istalátor)
+xsmisk00 97 (matematická knihovna)
