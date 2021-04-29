@@ -3,7 +3,7 @@ gtest=g++ test.cpp mathLib.cpp -lgtest -lgtest_main -pthread
 del=rm -f
 test_out=./a.out
 gtest_url=https://codeload.github.com/google/googletest/zip/refs/heads/master
-zipe_file=IVS-main.zip	
+file=xhaury00_xrezni29_xsmisk00_xkarev00
 all:	
 	$(gcc)
 	qmake src.pro
@@ -23,13 +23,15 @@ run:
 	
 	 
 pack: 
-	cd .. && zip -r $(zipe_file) *
-	cd .. && mv $(zipe_file) src
+	cd .. && cd .. && cd .. && zip -r $(file).zip $(file)
+	cd .. && cd .. && cd .. && mv $(file).zip $(file)
 
 
 doc:	Doxyfile
 	doxygen -g Doxyfile
 	doxygen Doxyfile
+	mv html ../../doc
+	mv latex ../../doc
 clean: 
 	$(del) *.o
 	$(del) *.zip
@@ -42,8 +44,8 @@ clean:
 	$(del) ui_*
 	$(del) -r googletest-master
 	$(del) master
-	$(del) -r html
-	$(del) -r latex
+	cd ../../doc && $(del) -r html
+	cd ../../doc && $(del) -r latex
 	$(del) *.bak
 profile:
 	$(gcc)
